@@ -34,13 +34,14 @@ def create_project(name, url):
     project.save()
 
 
-def create_issue(project_id, name, version, time):
+def create_issue(project_id, name, version, time, parent_issue_id):
     """
     Create issue in project
     :param project_id: project id
     :param name: issue name
     :param version: Roadmap version
     :param time: estimated time
+    :param parent_issue_id: parent issue
     :return:
     """
     issue = get_redmine().issue.new()
@@ -48,8 +49,9 @@ def create_issue(project_id, name, version, time):
     issue.subject = name
     issue.fixed_version_id = version
     issue.start_date = datetime.date(datetime.today())
-    issue.due_date = datetime.date(datetime.today())
     issue.estimated_hours = time
+    if parent_issue_id:
+        issue.parent_issue_id = parent_issue_id
     issue.save()
 
 
@@ -65,5 +67,5 @@ def create_version(project_id, name):
     version.name = name
     version.status = 'open'
     version.sharing = 'none'
-    version.due_date = datetime.date(datetime.today())
+    version.start_date = datetime.date(datetime.today())
     version.save()
