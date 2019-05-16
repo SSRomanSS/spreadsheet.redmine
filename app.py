@@ -9,19 +9,19 @@ project = to_redmine.get_redmine().project.all()  # get existing Redmine project
 project_dict = {}
 for i in list(project):
     project_dict[i.name] = i.identifier
-PROJECT_NAME = str(input('Input the of Redmine project\n>'))
+PROJECT_NAME = str(input('Input the name of Redmine project:\n>'))
 if PROJECT_NAME in project_dict:
     PROJECT_ID = project_dict[PROJECT_NAME]
 else:
-    sys.exit('There is not such project in Redmine. Create it first')
+    sys.exit('There is not such project in Redmine. Create it first.')
 
 project = to_redmine.get_redmine().project.get(PROJECT_ID)
 if not project.versions:
-    sys.exit('Create the Roadmap version in selected Redmine Project')
+    sys.exit('Create the Roadmap version in selected Redmine Project.')
 version_dict = {}
 for i in list(project.versions):  # get versions from selected project
     version_dict[i.name] = i.id
-VERSION_NAME = str(input('Input name of Redmine Roadmap version\n>'))
+VERSION_NAME = str(input('Input name of Redmine Roadmap version:\n>'))
 if VERSION_NAME in version_dict:
     VERSION_ID = version_dict[VERSION_NAME]
 else:
@@ -84,6 +84,10 @@ class App:
                                         time, parent_issue_id_child)
             else:
                 continue
+
+        check_project = to_redmine.get_redmine().project.get(self.project_id)
+        if check_project:
+            print('All issues added successfully in "{}".'.format(PROJECT_NAME))
 
 
 def main():
