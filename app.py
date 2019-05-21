@@ -6,6 +6,8 @@ import from_spreadsheet
 import to_redmine
 
 project = to_redmine.get_redmine().project.all()  # get existing Redmine projects
+if not project:
+    sys.exit('There is not any project in Redmine. Create it first.')
 project_dict = {}
 for i in list(project):
     project_dict[i.name] = i.identifier
@@ -26,7 +28,6 @@ if VERSION_NAME in version_dict:
     VERSION_ID = version_dict[VERSION_NAME]
 else:
     sys.exit('There is not such Roadmap version. Create it first')
-VERSION_ID = version_dict[VERSION_NAME]
 
 SPREADSHEET_URL = str(input('Input spreadsheet url\n>'))
 

@@ -10,5 +10,7 @@ setup(
     entry_points={
         'console_scripts': 'getsheet=app:main'
     },
-    install_requires=[]
+    install_requires=['gspread',
+                      'oauth2client',
+                      'python-redmine==2.2.1']
     )
