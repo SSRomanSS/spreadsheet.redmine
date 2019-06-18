@@ -69,20 +69,29 @@ class App:
         for row in data:
             if row[0]:
                 issue_name = row[0]
-                time = row[-1]
+                time = ''
                 parent_issue_id = ''
                 parent_issue_id_root = self.create_issue_id(self.project_id, issue_name,
                                                             self.version, time, parent_issue_id)
+                print('Issue "{}" added in project "{}"'.format(issue_name, PROJECT_NAME))
             if not row[0] and row[1]:
                 issue_name = row[1]
                 time = row[-1]
                 parent_issue_id_child = self.create_issue_id(self.project_id, issue_name,
                                                              self.version, time, parent_issue_id_root)
+                print('Issue "{}" added in project "{}"'.format(issue_name, PROJECT_NAME))
             if not row[0] and not row[1] and row[2]:
                 issue_name = row[2]
                 time = row[-1]
+                parent_issue_id_child_one = self.create_issue_id(self.project_id, issue_name, self.version,
+                                                                 time, parent_issue_id_child)
+                print('Issue "{}" added in project "{}"'.format(issue_name, PROJECT_NAME))
+            if not row[1] and not row[2] and row[3]:
+                issue_name = row[3]
+                time = row[-1]
                 to_redmine.create_issue(self.project_id, issue_name, self.version,
-                                        time, parent_issue_id_child)
+                                        time, parent_issue_id_child_one)
+                print('Issue "{}" added in project "{}"'.format(issue_name, PROJECT_NAME))
             else:
                 continue
 
