@@ -69,7 +69,7 @@ class App:
         for row in data:
             if row[0]:
                 issue_name = row[0]
-                time = ''
+                time = row[-1]
                 parent_issue_id = ''
                 parent_issue_id_root = self.create_issue_id(self.project_id, issue_name,
                                                             self.version, time, parent_issue_id)
